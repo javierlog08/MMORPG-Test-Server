@@ -2,8 +2,12 @@
 
 namespace app;
 
+use Yii;
+use app\models\Login;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
+use yii\helpers\Json;
+use yii\helpers\VarDumper;
 
 class Game implements MessageComponentInterface
 {
@@ -26,8 +30,21 @@ class Game implements MessageComponentInterface
   {
 
     $numRecv = count($this->clients) - 1;
-    echo sprintf('Connection %d sending message "%s" to %d other connection%s' . "\n"
+    /*echo sprintf('Connection %d sending message "%s" to %d other connection%s' . "\n"
     , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's');
+  */
+
+
+    $login = Json::decode($msg);
+
+    $model = new Login();
+
+    $model->username = $login['username'];
+    $model->password = Yii::$app->getSecurity()->generatePasswordHash($login['password']);
+    $model->online = 1;
+    $model->uuid = $login['uuid'];
+
+    $model->save();
 
   }
 

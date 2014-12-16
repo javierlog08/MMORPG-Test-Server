@@ -1,0 +1,73 @@
+2014-12-16 18:34:24 [-][-][-][error][ReflectionException] exception 'ReflectionException' with message 'Class yii\debug\Module does not exist' in C:\wamp\www\MMORPG-Test-Server\vendor\yiisoft\yii2\di\Container.php:408
+Stack trace:
+#0 C:\wamp\www\MMORPG-Test-Server\vendor\yiisoft\yii2\di\Container.php(408): ReflectionClass->__construct('yii\\debug\\Modul...')
+#1 C:\wamp\www\MMORPG-Test-Server\vendor\yiisoft\yii2\di\Container.php(354): yii\di\Container->getDependencies('yii\\debug\\Modul...')
+#2 C:\wamp\www\MMORPG-Test-Server\vendor\yiisoft\yii2\di\Container.php(147): yii\di\Container->build('yii\\debug\\Modul...', Array, Array)
+#3 C:\wamp\www\MMORPG-Test-Server\vendor\yiisoft\yii2\BaseYii.php(340): yii\di\Container->get('yii\\debug\\Modul...', Array)
+#4 C:\wamp\www\MMORPG-Test-Server\vendor\yiisoft\yii2\base\Module.php(354): yii\BaseYii::createObject('yii\\debug\\Modul...', Array)
+#5 C:\wamp\www\MMORPG-Test-Server\vendor\yiisoft\yii2\base\Application.php(304): yii\base\Module->getModule('debug')
+#6 C:\wamp\www\MMORPG-Test-Server\vendor\yiisoft\yii2\base\Application.php(267): yii\base\Application->bootstrap()
+#7 C:\wamp\www\MMORPG-Test-Server\vendor\yiisoft\yii2\console\Application.php(114): yii\base\Application->init()
+#8 C:\wamp\www\MMORPG-Test-Server\vendor\yiisoft\yii2\base\Object.php(107): yii\console\Application->init()
+#9 C:\wamp\www\MMORPG-Test-Server\vendor\yiisoft\yii2\base\Application.php(206): yii\base\Object->__construct(Array)
+#10 C:\wamp\www\MMORPG-Test-Server\vendor\yiisoft\yii2\console\Application.php(79): yii\base\Application->__construct(Array)
+#11 C:\wamp\www\MMORPG-Test-Server\bin\yii(31): yii\console\Application->__construct(Array)
+#12 {main}
+2014-12-16 18:34:24 [-][-][-][info][application] $_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'AMDAPPSDKROOT' => 'c:\\Program Files (x86)\\AMD APP\\'
+    'ANT_HOME' => 'C:\\adt\\sdk\\tools\\ant'
+    'APPDATA' => 'C:\\Users\\Administrador\\AppData\\Roaming'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'JAVIER-PC'
+    'ComSpec' => 'C:\\Windows\\system32\\cmd.exe'
+    'FP_NO_HOST_CHECK' => 'NO'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\Administrador'
+    'JAVA_HOME' => 'C:\\Program Files\\Java\\jdk1.7.0_25'
+    'LOCALAPPDATA' => 'C:\\Users\\Administrador\\AppData\\Local'
+    'LOGONSERVER' => '\\\\JAVIER-PC'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OS' => 'Windows_NT'
+    'Path' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\wbem;C:\\app\\Administrador\\product\\11.2.0\\client_1;C:\\Program Files (x86)\\Oracle\\jre\\1.1.8\\bin;c:\\Program Files (x86)\\Intel\\iCLS Client;c:\\Program Files\\Intel\\iCLS Client;c:\\Program Files (x86)\\AMD APP\\bin\\x86_64;c:\\Program Files (x86)\\AMD APP\\bin\\x86;C:\\Windows\\System32\\WindowsPowerShell\\v1.0;c:\\Program Files (x86)\\ATI Technologies\\ATI.ACE\\Core-Static;C:\\Program Files\\Microsoft\\Web Platform Installer;C:\\Program Files (x86)\\Microsoft ASP.NET\\ASP.NET Web Pages\\v1.0;C:\\Program Files (x86)\\Windows Kits\\8.0\\Windows Performance Toolkit;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn;C:\\Program Files (x86)\\Java\\jre7\\bin;C:\\Program Files\\TortoiseSVN\\bin;C:\\play;C:\\Program Files\\Java\\jdk1.7.0_25\\bin;C:\\wamp\\bin\\php\\php5.5.12;C:\\Program Files\\TortoiseGit\\bin;C:\\ProgramData\\ComposerSetup\\bin;C:\\Program Files (x86)\\nodejs\\;C:\\Users\\Administrador\\AppData\\Roaming\\npm;C:\\SoftlandERP;C:\\SoftlandERP\\Setup;C:\\Users\\Administrador\\AppData\\Roaming\\npm;C:\\Users\\Administrador\\AppData\\Roaming\\npm;C:\\Users\\Administrador\\AppData\\Roaming\\npm;C:\\Users\\Administrador\\AppData\\Roaming\\npm;C:\\Program Files (x86)\\Git\\cmd;C:\\Program Files\\Microsoft\\Web Platform Installer\\;C:\\Users\\Administrador\\AppData\\Roaming\\npm;C:\\adt\\sdk\\tools\\ant\\bin;C:\\adt\\sdk\\tools;C:\\adt\\sdk\\platform-tools;C:\\ant\\bin;C:\\Program Files\\Java\\jdk1.7.0_25\\bin;'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PHP_COMMAND' => 'php.exe'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 58 Stepping 9, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '3a09'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PROMPT' => '$P$G'
+    'PSModulePath' => 'C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\Windows'
+    'TEMP' => 'C:\\Users\\ADMINI~1\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\ADMINI~1\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'JAVIER-PC'
+    'USERNAME' => 'Administrador'
+    'USERPROFILE' => 'C:\\Users\\Administrador'
+    'VS110COMNTOOLS' => 'C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\Tools\\'
+    'WF_RESOURCES' => 'C:\\oracle\\ora92\\WF\\RES\\WFus.RES'
+    'windir' => 'C:\\Windows'
+    'windows_tracing_flags' => '3'
+    'windows_tracing_logfile' => 'C:\\BVTBin\\Tests\\installpackage\\csilogfile.log'
+    'YII_PATH' => 'C:\\wamp\\www\\MMORPG-Test-Server\\bin\\'
+    'PHP_SELF' => 'C:\\wamp\\www\\MMORPG-Test-Server\\bin\\yii'
+    'SCRIPT_NAME' => 'C:\\wamp\\www\\MMORPG-Test-Server\\bin\\yii'
+    'SCRIPT_FILENAME' => 'C:\\wamp\\www\\MMORPG-Test-Server\\bin\\yii'
+    'PATH_TRANSLATED' => 'C:\\wamp\\www\\MMORPG-Test-Server\\bin\\yii'
+    'DOCUMENT_ROOT' => ''
+    'REQUEST_TIME_FLOAT' => 1418751264.2228
+    'REQUEST_TIME' => 1418751264
+    'argv' => [
+        0 => 'C:\\wamp\\www\\MMORPG-Test-Server\\bin\\yii'
+    ]
+    'argc' => 1
+]
