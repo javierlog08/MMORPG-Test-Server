@@ -1,9 +1,14 @@
 <?php
 
 namespace app;
+
 use Yii;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
+use yii\helpers\StringHelper;
+use yii\web\CookieCollection;
+use yii\base\InvalidConfigException;
+use yii\web\Cookie;
 
 class RequestValidator implements MessageComponentInterface
 {
@@ -25,6 +30,13 @@ class RequestValidator implements MessageComponentInterface
 	public $request;
 
 	private $_cookies;
+
+	const CSRF_HEADER = 'X-CSRF-Token';
+
+	const CSRF_MASK_LENGTH = 8;
+
+	private $_csrfToken;
+
 
 	public function __construct() {
 		$this->clients = new \SplObjectStorage;
@@ -110,5 +122,71 @@ class RequestValidator implements MessageComponentInterface
 		$trueToken = $this->loadCsrfToken(request);
 		return $this->validateCsrfTokenInternal($request->getParams()->get($this->csrfParam), $trueToken)
 		|| $this->validateCsrfTokenInternal($this->getCsrfTokenFromHeader(), $trueToken);
+	}
+
+	/**
+	 * Returns the token used to perform CSRF validation.
+	 *
+	 * This token is a masked version of [[rawCsrfToken]] to prevent [BREACH attacks](http://breachattack.com/).
+	 * This token may be passed along via a hidden field of an HTML form or an HTTP header value
+	 * to support CSRF validation.
+	 * @param boolean $regenerate whether to regenerate CSRF token. When this parameter is true, each time
+	 * this method is called, a new CSRF token will be generated and persisted (in session or cookie).
+	 * @return string the token used to perform CSRF validation.
+	 */
+	public function getCsrfToken($regenerate = false,$conn)
+	{
+		$request = $conn->WebSocket->request;
+
+		if ($this->_csrfToken === null || $regenerate) {
+			if ($regenerate || ($token = $this->loadCsrfToken($request)) === null) {
+				$token = $this->generateCsrfToken();
+			}
+			// the mask doesn't need to be very random
+			$chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-.';
+			$mask = substr(str_shuffle(str_repeat($chars, 5)), 0, self::CSRF_MASK_LENGTH);
+			// The + sign may be decoded as blank space later, which will fail the validation
+			$this->_csrfToken = str_replace('+', '.', base64_encode($mask . $this->xorTokens($token, $mask)));
+		}
+		return $this->_csrfToken;
+	}
+
+	protected function generateCsrfToken()
+	{
+		$token = Yii::$app->getSecurity()->generateRandomString();
+		if ($this->enableCsrfCookie) {
+			$config = $this->csrfCookie;
+			$config['name'] = $this->csrfParam;
+			$config['value'] = $token;
+			Yii::$app->getResponse()->getCookies()->add(new Cookie($config));
+		} else {
+			Yii::$app->getSession()->set($this->csrfParam, $token);
+		}
+		return $token;
+	}
+
+	private function xorTokens($token1, $token2)
+	{
+		$n1 = StringHelper::byteLength($token1);
+		$n2 = StringHelper::byteLength($token2);
+		if ($n1 > $n2) {
+			$token2 = str_pad($token2, $n1, $token2);
+		} elseif ($n1 < $n2) {
+			$token1 = str_pad($token1, $n2, $n1 === 0 ? ' ' : $token1);
+		}
+		return $token1 ^ $token2;
+	}
+
+	private function validateCsrfTokenInternal($token, $trueToken)
+	{
+		$token = base64_decode(str_replace('.', '+', $token));
+		$n = StringHelper::byteLength($token);
+		if ($n <= self::CSRF_MASK_LENGTH) {
+			return false;
+		}
+		$mask = StringHelper::byteSubstr($token, 0, self::CSRF_MASK_LENGTH);
+		$token = StringHelper::byteSubstr($token, self::CSRF_MASK_LENGTH, $n - self::CSRF_MASK_LENGTH);
+		$token = $this->xorTokens($mask, $token);
+		return $token === $trueToken;
 	}
 }
